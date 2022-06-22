@@ -1,7 +1,6 @@
 package com.poo0054.study;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.StaticMessageSource;
 
 /**
  * @author zhangzhi
@@ -11,7 +10,7 @@ import org.springframework.context.support.StaticMessageSource;
 public class TestSpring {
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("simpleContext.xml");
-		StaticMessageSource yourMessageSource = classPathXmlApplicationContext.getBean("yourMessageSource", StaticMessageSource.class);
-		System.out.println(yourMessageSource);
+		TestBean testBean = classPathXmlApplicationContext.getBean("testBean", TestBean.class);
+		testBean.send();
 	}
 }
