@@ -251,7 +251,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
-		//急切地检查单例缓存以获取手动注册的单例
+		/**
+		 * --------------------------------------
+		 * 急切地检查单例缓存以获取手动注册的单例从单利池中获取
+		 * --------------------------------------
+		 */
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
 			if (logger.isTraceEnabled()) {
@@ -939,8 +943,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			this.hasInstantiationAwareBeanPostProcessors = true;
 		}
 		if (beanPostProcessor instanceof DestructionAwareBeanPostProcessor) {
-			this.hasDestructionAwareBeanPostProcessors = true;
 		}
+		this.hasDestructionAwareBeanPostProcessors = true;
 		// Add to end of list
 		this.beanPostProcessors.add(beanPostProcessor);
 	}
