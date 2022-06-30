@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
-		"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>
+	<!--	<context:component-scan base-package="com.poo0054.study"/>-->
+	<!--	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
 
-	<bean id="testBean1" class="com.poo0054.study.TestBean1">
-		<property name="testBean" ref="testBean"/>
-	</bean>
+	<!--	<bean id="testBean1" class="com.poo0054.study.TestBean1">-->
+	<!--	</bean>-->
 
-	<bean id="testBean" class="com.poo0054.study.TestBean">
-
-	</bean>
-
-	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" id="configurer">
+	<bean id="testBean" class="com.poo0054.study.TestBean" lazy-init="true">
 
 	</bean>
 
-	<!--<bean class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
-		<constructor-arg value="someNonExistentFile.xml"/>
-	</bean>-->
 
 </beans>

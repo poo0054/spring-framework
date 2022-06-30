@@ -1,8 +1,7 @@
 package com.poo0054.study;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * {@link BeanFactory}
@@ -12,34 +11,22 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * @since 2022/6/22 17:21
  */
 
-public class TestBean implements BeanPostProcessor {
+public class TestBean {
 
-	private TestBean1 testBean1;
+	private TestBean1 bean1;
 
-	public void setTestBean1(TestBean1 testBean1) {
-		System.out.println("----TestBean---setTestBean1--------testBean1--------------------------------------------------");
-		this.testBean1 = testBean1;
+	@Autowired
+	public void setBean1(TestBean1 bean1) {
+		System.out.println("我是TestBean 准备  add " + bean1);
+		this.bean1 = bean1;
 	}
 
-	public TestBean() {
-		System.out.println("------TestBean   init ---------");
+	public TestBean1 getBean1() {
+		return bean1;
 	}
 
 	public void send() {
-		System.out.println("----TestBean---send----------------------------------------------------------");
-	}
-
-
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		System.out.println("------postProcessBeforeInitialization-" + bean + "---------" + beanName + "-----------");
-		return bean;
-	}
-
-	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		System.out.println("------postProcessAfterInitialization-" + bean + "---------" + beanName + "-----------");
-		return bean;
+		System.out.println("----TestBean---send----------------------------------------------------------" + bean1);
 	}
 
 

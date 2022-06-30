@@ -540,15 +540,15 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			/**
+			/*
 			 * 刷新内部工厂
 			 *  创建beanFactory  关闭以前的工厂  是否允许循环依赖   是否应允许通过注册具有相同名称的不同定义来覆盖 bean 定义
-			 *  从xml中加载bean
+			 *  从xml中加载bean  比如：beanDefinitionMap就是在创建的时候添加的
 			 */
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
-			/**
+			/*
 			 * 准备 bean 工厂以在此上下文中使用。
 			 * 配置工厂的标准上下文特征，例如上下文的 ClassLoader 和后处理器
 			 */
@@ -903,9 +903,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
 				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
 			beanFactory.setConversionService(
-					/**
-					 * 获取转换器
-					 */
+					// 获取转换器
 					beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));
 		}
 
@@ -1155,7 +1153,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * no-op if {@link #getBeanFactory()} itself throws an exception in such a case.
 	 */
 	protected void assertBeanFactoryActive() {
+		//指示此上下文当前是否处于活动状态的标志
 		if (!this.active.get()) {
+			//指示此上下文是否已关闭的标志
 			if (this.closed.get()) {
 				throw new IllegalStateException(getDisplayName() + " has been closed already");
 			} else {
@@ -1177,7 +1177,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	@Override
 	public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+		//断言此上下文的 BeanFactory 当前处于活动状态
 		assertBeanFactoryActive();
+		//返回指定 bean 的一个实例，该实例可以是共享的，也可以是独立的。
 		return getBeanFactory().getBean(name, requiredType);
 	}
 
