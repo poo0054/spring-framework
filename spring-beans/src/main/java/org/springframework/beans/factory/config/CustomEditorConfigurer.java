@@ -16,17 +16,16 @@
 
 package org.springframework.beans.factory.config;
 
-import java.beans.PropertyEditor;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
+
+import java.beans.PropertyEditor;
+import java.util.Map;
 
 /**
  * {@link BeanFactoryPostProcessor} implementation that allows for convenient
@@ -86,12 +85,12 @@ import org.springframework.util.ClassUtils;
  * implementations to reuse editor registration there.
  *
  * @author Juergen Hoeller
- * @since 27.02.2004
  * @see java.beans.PropertyEditor
  * @see org.springframework.beans.PropertyEditorRegistrar
  * @see ConfigurableBeanFactory#addPropertyEditorRegistrar
  * @see ConfigurableBeanFactory#registerCustomEditor
  * @see org.springframework.validation.DataBinder#registerCustomEditor
+ * @since 27.02.2004
  */
 public class CustomEditorConfigurer implements BeanFactoryPostProcessor, Ordered {
 
@@ -123,6 +122,7 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, Ordered
 	 * Furthermore, it avoids the need for synchronization on custom editors:
 	 * A {@code PropertyEditorRegistrar} will always create fresh editor
 	 * instances for each bean creation attempt.
+	 *
 	 * @see ConfigurableListableBeanFactory#addPropertyEditorRegistrar
 	 */
 	public void setPropertyEditorRegistrars(PropertyEditorRegistrar[] propertyEditorRegistrars) {
@@ -133,6 +133,7 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, Ordered
 	 * Specify the custom editors to register via a {@link Map}, using the
 	 * class name of the required type as the key and the class name of the
 	 * associated {@link PropertyEditor} as value.
+	 *
 	 * @see ConfigurableListableBeanFactory#registerCustomEditor
 	 */
 	public void setCustomEditors(Map<Class<?>, Class<? extends PropertyEditor>> customEditors) {

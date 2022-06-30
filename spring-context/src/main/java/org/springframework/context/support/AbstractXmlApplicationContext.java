@@ -97,9 +97,8 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		beanDefinitionReader.setEntityResolver(new ResourceEntityResolver(this));
 
 		// Allow a subclass to provide custom initialization of the reader,
-		//允许子类提供阅读器的自定义初始化，
 		// then proceed with actually loading the bean definitions.
-		//然后继续实际加载 bean 定义。
+		//允许子类提供阅读器的自定义初始化，然后继续实际加载 bean 定义。
 		initBeanDefinitionReader(beanDefinitionReader);
 		//加载bean的定义
 		loadBeanDefinitions(beanDefinitionReader);
@@ -134,14 +133,14 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @see #getResourcePatternResolver
 	 */
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
-		/**
+		/*
 		 *{@link ClassPathXmlApplicationContext} 重写了getConfigResources
 		 */
 		Resource[] configResources = getConfigResources();
 		if (configResources != null) {
 			reader.loadBeanDefinitions(configResources);
 		}
-		/**
+		/*
 		 * {@link FileSystemXmlApplicationContext#setConfigLocations(String...)} 方法（构造方法中调用）赋值给{@link #configLocations} 属性 则会直接返回
 		 */
 		String[] configLocations = getConfigLocations();

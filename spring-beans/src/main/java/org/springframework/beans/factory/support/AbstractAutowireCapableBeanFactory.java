@@ -527,7 +527,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected Object doCreateBean(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
 			throws BeanCreationException {
 
-		// Instantiate the bean.
+		// Instantiate the bean.  实例化 bean。
 		BeanWrapper instanceWrapper = null;
 		// 如果这个 bean 是单例的，则从缓存中获取这个 beanName 对应的 BeanWrapper实例，并清除
 		if (mbd.isSingleton()) {
@@ -1332,7 +1332,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 						(PrivilegedAction<Object>) () -> getInstantiationStrategy().instantiate(mbd, beanName, this),
 						getAccessControlContext());
 			} else {
-				/**
+				/*
 				 * ---------------------------------
 				 * 初始化
 				 * ---------------------------------
