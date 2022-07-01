@@ -16,19 +16,18 @@
 
 package org.springframework.aop.framework;
 
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.aop.ProxyMethodInvocation;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.core.BridgeMethodResolver;
+import org.springframework.lang.Nullable;
+
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
-import org.springframework.aop.ProxyMethodInvocation;
-import org.springframework.aop.support.AopUtils;
-import org.springframework.core.BridgeMethodResolver;
-import org.springframework.lang.Nullable;
 
 /**
  * Spring's implementation of the AOP Alliance
@@ -94,16 +93,17 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 
 	/**
 	 * Construct a new ReflectiveMethodInvocation with the given arguments.
-	 * @param proxy the proxy object that the invocation was made on
-	 * @param target the target object to invoke
-	 * @param method the method to invoke
-	 * @param arguments the arguments to invoke the method with
-	 * @param targetClass the target class, for MethodMatcher invocations
+	 *
+	 * @param proxy                                the proxy object that the invocation was made on
+	 * @param target                               the target object to invoke
+	 * @param method                               the method to invoke
+	 * @param arguments                            the arguments to invoke the method with
+	 * @param targetClass                          the target class, for MethodMatcher invocations
 	 * @param interceptorsAndDynamicMethodMatchers interceptors that should be applied,
-	 * along with any InterceptorAndDynamicMethodMatchers that need evaluation at runtime.
-	 * MethodMatchers included in this struct must already have been found to have matched
-	 * as far as was possibly statically. Passing an array might be about 10% faster,
-	 * but would complicate the code. And it would work only for static pointcuts.
+	 *                                             along with any InterceptorAndDynamicMethodMatchers that need evaluation at runtime.
+	 *                                             MethodMatchers included in this struct must already have been found to have matched
+	 *                                             as far as was possibly statically. Passing an array might be about 10% faster,
+	 *                                             but would complicate the code. And it would work only for static pointcuts.
 	 */
 	protected ReflectiveMethodInvocation(
 			Object proxy, @Nullable Object target, Method method, @Nullable Object[] arguments,
@@ -159,6 +159,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	@Nullable
 	public Object proceed() throws Throwable {
 		// We start with an index of -1 and increment early.
+		//我们从 -1 的索引开始并提前递增。
 		if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
 			return invokeJoinpoint();
 		}
@@ -173,16 +174,17 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			Class<?> targetClass = (this.targetClass != null ? this.targetClass : this.method.getDeclaringClass());
 			if (dm.methodMatcher.matches(this.method, targetClass, this.arguments)) {
 				return dm.interceptor.invoke(this);
-			}
-			else {
+			} else {
 				// Dynamic matching failed.
 				// Skip this interceptor and invoke the next in the chain.
+				//动态匹配失败。跳过这个拦截器并调用链中的下一个。
 				return proceed();
 			}
-		}
-		else {
+		} else {
 			// It's an interceptor, so we just invoke it: The pointcut will have
 			// been evaluated statically before this object was constructed.
+			//它是一个拦截器，所以我们只是调用它：在构造这个对象之前，切入点将被静态评估。
+			//调用自定义的Advice （包含一个递归调用）
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}
@@ -190,6 +192,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	/**
 	 * Invoke the joinpoint using reflection.
 	 * Subclasses can override this to use custom invocation.
+	 *
 	 * @return the return value of the joinpoint
 	 * @throws Throwable if invoking the joinpoint resulted in an exception
 	 */
@@ -205,6 +208,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	 * <p>We want a shallow copy in this case: We want to use the same interceptor
 	 * chain and other object references, but we want an independent value for the
 	 * current interceptor index.
+	 *
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
@@ -223,6 +227,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	 * <p>We want a shallow copy in this case: We want to use the same interceptor
 	 * chain and other object references, but we want an independent value for the
 	 * current interceptor index.
+	 *
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
@@ -238,8 +243,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			ReflectiveMethodInvocation clone = (ReflectiveMethodInvocation) clone();
 			clone.arguments = arguments;
 			return clone;
-		}
-		catch (CloneNotSupportedException ex) {
+		} catch (CloneNotSupportedException ex) {
 			throw new IllegalStateException(
 					"Should be able to clone object of type [" + getClass() + "]: " + ex);
 		}
@@ -253,8 +257,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 				this.userAttributes = new HashMap<>();
 			}
 			this.userAttributes.put(key, value);
-		}
-		else {
+		} else {
 			if (this.userAttributes != null) {
 				this.userAttributes.remove(key);
 			}
@@ -271,6 +274,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	 * Return user attributes associated with this invocation.
 	 * This method provides an invocation-bound alternative to a ThreadLocal.
 	 * <p>This map is initialized lazily and is not used in the AOP framework itself.
+	 *
 	 * @return any user attributes associated with this invocation
 	 * (never {@code null})
 	 */
@@ -289,8 +293,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 		sb.append(this.method).append("; ");
 		if (this.target == null) {
 			sb.append("target is null");
-		}
-		else {
+		} else {
 			sb.append("target is of class [").append(this.target.getClass().getName()).append(']');
 		}
 		return sb.toString();

@@ -1,4 +1,4 @@
-package com.poo0054.study;
+package com.poo0054.study.ioc;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;

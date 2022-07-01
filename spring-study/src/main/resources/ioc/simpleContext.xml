@@ -7,10 +7,10 @@
 	<!--	<context:component-scan base-package="com.poo0054.study"/>-->
 	<!--	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
 
-	<!--	<bean id="testBean1" class="com.poo0054.study.TestBean1">-->
+	<!--	<bean id="testBean1" class="com.poo0054.study.ioc.TestBean1">-->
 	<!--	</bean>-->
 
-	<bean id="testBean" class="com.poo0054.study.TestBean" lazy-init="true">
+	<bean id="testBean" class="com.poo0054.study.ioc.TestBean" lazy-init="true">
 
 	</bean>
 

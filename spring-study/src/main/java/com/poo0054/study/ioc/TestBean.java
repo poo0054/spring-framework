@@ -1,4 +1,4 @@
-package com.poo0054.study;
+package com.poo0054.study.ioc;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
