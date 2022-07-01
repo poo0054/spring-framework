@@ -1,4 +1,4 @@
-package com.poo0054.study;
+package com.poo0054.study.ioc;
 
 /**
  * @author zhangzhi

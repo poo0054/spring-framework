@@ -1,6 +1,7 @@
 description = "spring study"
 
 dependencies {
+    compile(project(":spring-aspects"))
     compile(project(":spring-context"))
 }
 

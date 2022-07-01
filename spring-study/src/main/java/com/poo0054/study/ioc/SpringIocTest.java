@@ -1,7 +1,5 @@
-package com.poo0054;
+package com.poo0054.study.ioc;
 
-import com.poo0054.study.TestBean;
-import com.poo0054.study.User;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -9,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version 1.0
  * @since 2022/6/20 14:00
  */
-public class TestSpring {
+public class SpringIocTest {
 
 	public static void main(String[] args) {
 		springTest();
@@ -17,8 +15,8 @@ public class TestSpring {
 
 	public static void springTest() {
 
-		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("simpleContext.xml");
-//		FileSystemXmlApplicationContext applicationContext = new FileSystemXmlApplicationContext("simpleContext.xml");
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("ioc/simpleContext.xml");
+//		FileSystemXmlApplicationContext applicationContext = new FileSystemXmlApplicationContext("SpringAopContext.xml");
 		TestBean testBean = applicationContext.getBean("testBean", TestBean.class);
 //		TestBean1 testBean1 = applicationContext.getBean("testBean1", TestBean1.class);
 		System.out.println("testBean---------------" + testBean);
@@ -26,7 +24,7 @@ public class TestSpring {
 	}
 
 	public static void propertyEditorTest() {
-		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("propertyEditorContext.xml");
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("ioc/propertyEditorContext.xml");
 		User testBean = applicationContext.getBean("user", User.class);
 		System.out.println(testBean);
 	}

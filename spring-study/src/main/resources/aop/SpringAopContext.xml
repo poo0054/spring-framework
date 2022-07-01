@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="myXmlAspect" class="com.poo0054.study.aop.MyXmlAspect"/>
+	<bean id="simpleBeanImpl" class="com.poo0054.study.aop.SimpleBeanImpl"/>
+
+	<bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- 代理类实现的接口 -->
+		<property name="proxyInterfaces" value="com.poo0054.study.aop.SimpleBean"/>
+		<!-- 被代理的对象 -->
+		<property name="target" ref="simpleBeanImpl">
+		</property>
+		<!-- 配置相应的 Advisor -->
+		<property name="interceptorNames">
+			<list>
+				<value>myXmlAspect</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

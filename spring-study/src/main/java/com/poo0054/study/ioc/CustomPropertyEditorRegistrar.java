@@ -1,4 +1,4 @@
-package com.poo0054.study;
+package com.poo0054.study.ioc;
 
 import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.PropertyEditorRegistry;
