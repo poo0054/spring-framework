@@ -541,7 +541,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			// Tell the subclass to refresh the internal bean factory.
 			/*
-			 * 刷新内部工厂
+			 * 刷新内部工厂 - > 获取beanFactory
 			 *  创建beanFactory  关闭以前的工厂  是否允许循环依赖   是否应允许通过注册具有相同名称的不同定义来覆盖 bean 定义
 			 *  从xml中加载bean  比如：beanDefinitionMap就是在创建的时候添加的
 			 */
