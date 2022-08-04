@@ -23,6 +23,7 @@
 	</servlet-mapping>
 
 	<listener>
+		<!--		监听器-->
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
