@@ -5,7 +5,7 @@
 	   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	<bean id="myXmlAspect" class="com.poo0054.study.aop.MyXmlAspect"/>
+	<bean id="xmlBeforeAdvice" class="com.poo0054.study.aop.XmlBeforeAdvice"/>
 	<bean id="simpleBeanImpl" class="com.poo0054.study.aop.SimpleBeanImpl"/>
 
 	<bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -17,7 +17,7 @@
 		<!-- 配置相应的 Advisor -->
 		<property name="interceptorNames">
 			<list>
-				<value>myXmlAspect</value>
+				<value>xmlBeforeAdvice</value>
 			</list>
 		</property>
 	</bean>

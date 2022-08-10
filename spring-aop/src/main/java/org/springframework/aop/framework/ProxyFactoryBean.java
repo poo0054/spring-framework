@@ -244,6 +244,9 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * Create an instance of the AOP proxy to be returned by this factory.
 	 * The instance will be cached for a singleton, and create on each call to
 	 * {@code getObject()} for a proxy.
+	 * <p>
+	 * 返回一个代理对象，当用户从 FactoryBean 中获取 bean 时调用，
+	 * 创建此工厂要返回的 AOP 代理的实例，该实例将作为一个单例被缓存
 	 *
 	 * @return a fresh AOP proxy reflecting the current state of this factory
 	 */
@@ -257,6 +260,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 		initializeAdvisorChain();
 		//是否是单例
 		if (isSingleton()) {
+			//返回此类代理对象的单例实例，如果尚未创建该实例，则单例地创建它
 			return getSingletonInstance();
 		} else {
 			if (this.targetName == null) {
@@ -324,15 +328,18 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 			this.targetSource = freshTargetSource();
 			if (this.autodetectInterfaces && getProxiedInterfaces().length == 0 && !isProxyTargetClass()) {
 				// Rely on AOP infrastructure to tell us what interfaces to proxy.
+				//依靠 AOP 基础设施来告诉我们代理哪些接口。
 				Class<?> targetClass = getTargetClass();
 				if (targetClass == null) {
 					throw new FactoryBeanNotInitializedException("Cannot determine target class for proxy");
 				}
+				// 设置代理对象的接口
 				setInterfaces(ClassUtils.getAllInterfacesForClass(targetClass, this.proxyClassLoader));
 			}
 			// Initialize the shared singleton instance.
 			//初始化共享单例实例
 			super.setFrozen(this.freezeProxy);
+			//  // 这里会通过 AopProxy 来得到代理对象
 			this.singletonInstance = getProxy(createAopProxy());
 		}
 		return this.singletonInstance;
@@ -430,6 +437,8 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * from a BeanFactory will be refreshed each time a new prototype instance
 	 * is added. Interceptors added programmatically through the factory API
 	 * are unaffected by such changes.
+	 * <p>
+	 * 初始化 Advisor 链，可以发现，其中有通过对 IoC 容器的 getBean() 方法的调用来获取配置好的 advisor 通知器
 	 */
 	private synchronized void initializeAdvisorChain() throws AopConfigException, BeansException {
 		if (!this.advisorChainInitialized && !ObjectUtils.isEmpty(this.interceptorNames)) {
@@ -439,11 +448,16 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 			}
 
 			// Globals can't be last unless we specified a targetSource using the property...
-			//除非我们使用属性指定 targetSource，否则 Globals 不能是最后一个...
+			// 除非我们使用属性指定 targetSource，否则 Globals 不能是最后一个...
 			if (this.interceptorNames[this.interceptorNames.length - 1].endsWith(GLOBAL_SUFFIX) &&
 					this.targetName == null && this.targetSource == EMPTY_TARGET_SOURCE) {
 				throw new AopConfigException("Target required after globals");
 			}
+
+			// 这里添加了 Advisor 链的调用，下面的 interceptorNames 是在配置文件中
+			// 通过 interceptorNames 进行配置的。由于每一个 Advisor 都是被配置为 bean 的，
+			// 所以通过遍历 interceptorNames 得到的 name，其实就是 bean 的 id，通过这个 name（id）
+			// 我们就可以从 IoC 容器中获取对应的实例化 bean
 
 			// Materialize interceptor chain from bean names.
 			//从 bean 名称实现拦截器链。
@@ -458,15 +472,19 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 				} else {
 					// If we get here, we need to add a named interceptor.
 					// We must check if it's a singleton or prototype.
+					//如果我们到达这里，我们需要添加一个命名拦截器。我们必须检查它是单例还是原型。
 					Object advice;
 					if (this.singleton || this.beanFactory.isSingleton(name)) {
 						// Add the real Advisor/Advice to the chain.
+						//将真正的 Advisor/Advice 添加到链中。
 						advice = this.beanFactory.getBean(name);
 					} else {
 						// It's a prototype Advice or Advisor: replace with a prototype.
 						// Avoid unnecessary creation of prototype bean just for advisor chain initialization.
+						//它是原型 Advice 或 Advisor：替换为原型。避免仅为顾问链初始化而不必要地创建原型 bean。
 						advice = new PrototypePlaceholderAdvisor(name);
 					}
+					//创建建议链时调用
 					addAdvisorOnChainCreation(advice);
 				}
 			}
@@ -544,6 +562,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	private void addAdvisorOnChainCreation(Object next) {
 		// We need to convert to an Advisor if necessary so that our source reference
 		// matches what we find from superclass interceptors.
+		//如有必要，我们需要转换为顾问，以便我们的源引用与我们从超类拦截器中找到的内容相匹配。
 		addAdvisor(namedBeanToAdvisor(next));
 	}
 

@@ -9,11 +9,11 @@ import java.lang.reflect.Method;
  * @version 1.0
  * @since 2022/6/28 17:47
  */
-public class MyXmlAspect implements MethodBeforeAdvice {
+public class XmlBeforeAdvice implements MethodBeforeAdvice {
 
 
 	@Override
-	public void before(Method method, Object[] args, Object target) throws Throwable {
+	public void before(Method method, Object[] args, Object target) {
 		System.out.println(" before  " + method.getName());
 	}
 

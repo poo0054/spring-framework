@@ -69,6 +69,7 @@ public class JdkRegexpMethodPointcut extends AbstractRegexpMethodPointcut {
 
 	/**
 	 * Returns {@code true} if the {@link Pattern} at index {@code patternIndex}
+	 * 如果索引patternIndex处的Pattern与提供的候选String匹配，则返回true 。
 	 * matches the supplied candidate {@code String}.
 	 */
 	@Override

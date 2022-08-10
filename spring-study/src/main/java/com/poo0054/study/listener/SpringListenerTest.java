@@ -12,7 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class SpringListenerTest {
 
-
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("listener/listenerContext.xml");
 		ApplicationEventDemo applicationEventDemo = new ApplicationEventDemo("123456");
