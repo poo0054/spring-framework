@@ -10,7 +10,7 @@ import org.springframework.beans.factory.BeanFactory;
  * @since 2022/6/22 17:21
  */
 
-public interface SimpleBean {
+public interface SimpleService {
 
 	String send();
 

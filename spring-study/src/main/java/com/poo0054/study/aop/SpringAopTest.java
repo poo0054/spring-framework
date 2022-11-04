@@ -16,7 +16,7 @@ public class SpringAopTest {
 	public static void aopTest() {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("aop/SpringAopContext.xml");
 //		SimpleBeanImpl testBean = (SimpleBeanImpl) applicationContext.getBean("proxyFactoryBean");
-		SimpleBean testBean = (SimpleBean) applicationContext.getBean("proxyFactoryBean");
+		SimpleService testBean = (SimpleService) applicationContext.getBean("proxyFactoryBean");
 		System.out.println(testBean.send());
 	}
 }

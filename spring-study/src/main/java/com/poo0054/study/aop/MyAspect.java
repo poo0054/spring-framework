@@ -12,7 +12,7 @@ import org.aspectj.lang.annotation.Pointcut;
 public class MyAspect {
 
 
-	@Pointcut("execution(* com.poo0054.study.aop.SimpleBean.*(..))")
+	@Pointcut("execution(* com.poo0054.study.aop.SimpleService.*(..))")
 	private void pointCut() {
 
 	}

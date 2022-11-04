@@ -5,7 +5,7 @@ package com.poo0054.study.aop;
  * @version 1.0
  * @since 2022/6/28 17:47
  */
-public class SimpleBeanImpl implements SimpleBean {
+public class SimpleServiceImpl implements SimpleService {
 
 	@Override
 	public String send() {

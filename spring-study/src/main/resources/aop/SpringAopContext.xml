@@ -6,11 +6,11 @@
 
 
 	<bean id="xmlBeforeAdvice" class="com.poo0054.study.aop.XmlBeforeAdvice"/>
-	<bean id="simpleBeanImpl" class="com.poo0054.study.aop.SimpleBeanImpl"/>
+	<bean id="simpleBeanImpl" class="com.poo0054.study.aop.SimpleServiceImpl"/>
 
 	<bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<!-- 代理类实现的接口 -->
-		<property name="proxyInterfaces" value="com.poo0054.study.aop.SimpleBean"/>
+		<property name="proxyInterfaces" value="com.poo0054.study.aop.SimpleService"/>
 		<!-- 被代理的对象 -->
 		<property name="target" ref="simpleBeanImpl">
 		</property>
