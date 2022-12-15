@@ -17,15 +17,10 @@
 package org.springframework.core.env;
 
 import java.security.AccessControlException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.core.SpringProperties;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.lang.Nullable;
@@ -455,6 +450,7 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	@Override
 	public void merge(ConfigurableEnvironment parent) {
 		for (PropertySource<?> ps : parent.getPropertySources()) {
+            // 只有在当前类不存在的属性才会替换
 			if (!this.propertySources.contains(ps.getName())) {
 				this.propertySources.addLast(ps);
 			}

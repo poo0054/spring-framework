@@ -7,19 +7,24 @@
 
 	<bean id="xmlBeforeAdvice" class="com.poo0054.study.aop.XmlBeforeAdvice"/>
 	<bean id="simpleBeanImpl" class="com.poo0054.study.aop.SimpleServiceImpl"/>
-
-	<bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
-		<!-- 代理类实现的接口 -->
-		<property name="proxyInterfaces" value="com.poo0054.study.aop.SimpleService"/>
-		<!-- 被代理的对象 -->
-		<property name="target" ref="simpleBeanImpl">
-		</property>
-		<!-- 配置相应的 Advisor -->
-		<property name="interceptorNames">
-			<list>
-				<value>xmlBeforeAdvice</value>
-			</list>
-		</property>
-	</bean>
+	<bean id="myAspect" class="com.poo0054.study.aop.MyAspect"/>
+	<bean id="aopConfig" class="com.poo0054.study.aop.AopConfig"/>
+	<bean id="aop1Config" class="com.poo0054.study.aop.Aop1Config"/>
+	<bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>
+	<!--
+		<bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+			&lt;!&ndash; 代理类实现的接口 &ndash;&gt;
+			<property name="proxyInterfaces" value="com.poo0054.study.aop.SimpleService"/>
+			&lt;!&ndash; 被代理的对象 &ndash;&gt;
+			<property name="target" ref="simpleBeanImpl">
+			</property>
+			&lt;!&ndash; 配置相应的 Advisor &ndash;&gt;
+			<property name="interceptorNames">
+				<list>
+					<value>xmlBeforeAdvice</value>
+				</list>
+			</property>
+		</bean>
+	-->
 
 </beans>

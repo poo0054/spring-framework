@@ -208,6 +208,7 @@ public abstract class AbstractRefreshableWebApplicationContext extends AbstractR
 	@Override
 	protected void initPropertySources() {
 		ConfigurableEnvironment env = getEnvironment();
+        // 初始化web项目的 servletContext
 		if (env instanceof ConfigurableWebEnvironment) {
 			((ConfigurableWebEnvironment) env).initPropertySources(this.servletContext, this.servletConfig);
 		}

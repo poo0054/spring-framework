@@ -137,9 +137,10 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 	public ClassPathXmlApplicationContext(
 			String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
 			throws BeansException {
-
+        // 把父类的环境添加入当前类 有重复的覆盖掉父类的
 		super(parent);
 		setConfigLocations(configLocations);
+        // 是否进行刷新
 		if (refresh) {
 			refresh();
 		}

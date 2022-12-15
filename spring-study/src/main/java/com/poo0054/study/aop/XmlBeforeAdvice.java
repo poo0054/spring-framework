@@ -1,8 +1,8 @@
 package com.poo0054.study.aop;
 
-import org.springframework.aop.MethodBeforeAdvice;
-
 import java.lang.reflect.Method;
+
+import org.springframework.aop.MethodBeforeAdvice;
 
 /**
  * @author ZhangZhi
@@ -11,11 +11,9 @@ import java.lang.reflect.Method;
  */
 public class XmlBeforeAdvice implements MethodBeforeAdvice {
 
-
-	@Override
-	public void before(Method method, Object[] args, Object target) {
-		System.out.println(" before  " + method.getName());
-	}
-
+    @Override
+    public void before(Method method, Object[] args, Object target) {
+        System.out.println("before class  " + target.getClass() + " call  " + method.getName());
+    }
 
 }
