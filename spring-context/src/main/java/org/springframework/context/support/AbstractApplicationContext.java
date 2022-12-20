@@ -534,6 +534,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
             prepareRefresh();
 
             // Tell the subclass to refresh the internal bean factory.
+            // 创建出beanFactory 加载xml文件并创建beanDefinition
             /*
              *  刷新内部工厂 - > 获取beanFactory
              *  创建beanFactory  关闭以前的工厂  是否允许循环依赖   是否应允许通过注册具有相同名称的不同定义来覆盖 bean 定义
@@ -542,6 +543,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
             ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
             // Prepare the bean factory for use in this context.
+            // 准备用于此上下文的bean工厂。
             /*
              * 准备 bean 工厂以在此上下文中使用。
              * 配置工厂的标准上下文特征，例如上下文的 ClassLoader 和后处理器
@@ -637,16 +639,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
         }
 
         // Initialize any placeholder property sources in the context environment.
-        // 初始化上下文环境中的任何占位符属性源。
+        // 初始化上下文环境中的任何占位符属性源。 web项目
         initPropertySources();
 
         // Validate that all properties marked as required are resolvable:
         // see ConfigurablePropertyResolver#setRequiredProperties
         // 验证标记为必需的所有属性都是可解析的 不能为空
+        // 前期校验一些参数
         getEnvironment().validateRequiredProperties();
 
         // Store pre-refresh ApplicationListeners...
         // 存储预刷新ApplicationListeners。。。
+        // 侦听器
         if (this.earlyApplicationListeners == null) {
             this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
         } else {
@@ -681,7 +685,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
      * @see #getBeanFactory()
      */
     protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
-        // 刷新 BeanFactory
+        // 创建 刷新 BeanFactory
         refreshBeanFactory();
         return getBeanFactory();
     }
@@ -695,12 +699,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
         // Tell the internal bean factory to use the context's class loader etc.
         // 告诉内部 bean 工厂使用上下文的类加载器等。
         beanFactory.setBeanClassLoader(getClassLoader());
+        // Spel解析器
         beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
+
+        // 解析器
         beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
         // Configure the bean factory with context callbacks.
         // 使用上下文回调配置 bean 工厂。
+        // Aware Processor添加 所有的 Aware都是 ApplicationContextAwareProcessor 处理
         beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+
+        // 忽略哪些接口
         beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
         beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
         beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
@@ -726,6 +736,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
         if (beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
             beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
             // Set a temporary ClassLoader for type matching.
+            // 为类型匹配设置临时ClassLoader。
             beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
         }
 
@@ -758,6 +769,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
      */
     protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
         // BeanFactoryPostProcessor接口 在bean创建之前 beanFactory可以做一些事情
+        // 比如configuration就是在此处
         PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 
         // Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime

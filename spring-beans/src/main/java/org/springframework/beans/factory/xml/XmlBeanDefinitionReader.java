@@ -318,7 +318,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         // 初始化ThreadLocal 调用initialValue
         Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
 
-        // 添加报错
+        // 不能重复加载
         if (!currentResources.add(encodedResource)) {
             throw new BeanDefinitionStoreException(
                 "Detected cyclic loading of " + encodedResource + " - check your import definitions!");
