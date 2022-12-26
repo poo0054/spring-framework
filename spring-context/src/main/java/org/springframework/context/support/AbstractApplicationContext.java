@@ -797,9 +797,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
      */
     protected void initMessageSource() {
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+        // 不存在messageSource就创建
         if (beanFactory.containsLocalBean(MESSAGE_SOURCE_BEAN_NAME)) {
             this.messageSource = beanFactory.getBean(MESSAGE_SOURCE_BEAN_NAME, MessageSource.class);
             // Make MessageSource aware of parent MessageSource.
+            // 使MessageSource知道父MessageSource。
             if (this.parent != null && this.messageSource instanceof HierarchicalMessageSource) {
                 HierarchicalMessageSource hms = (HierarchicalMessageSource)this.messageSource;
                 if (hms.getParentMessageSource() == null) {

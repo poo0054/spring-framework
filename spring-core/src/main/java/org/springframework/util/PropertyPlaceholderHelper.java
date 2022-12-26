@@ -147,6 +147,7 @@ public class PropertyPlaceholderHelper {
                 // 递归调用，解析占位符键中包含的占位符。
                 placeholder = parseStringValue(placeholder, placeholderResolver, visitedPlaceholders);
                 // Now obtain the value for the fully resolved key...
+                // 现在获取完全解析密钥的值。。。
                 String propVal = placeholderResolver.resolvePlaceholder(placeholder);
                 if (propVal == null && this.valueSeparator != null) {
                     int separatorIndex = placeholder.indexOf(this.valueSeparator);
@@ -162,6 +163,7 @@ public class PropertyPlaceholderHelper {
                 if (propVal != null) {
                     // Recursive invocation, parsing placeholders contained in the
                     // previously resolved placeholder value.
+                    // 递归调用，解析先前解析的占位符值中包含的占位符。
                     propVal = parseStringValue(propVal, placeholderResolver, visitedPlaceholders);
                     result.replace(startIndex, endIndex + this.placeholderSuffix.length(), propVal);
                     if (logger.isTraceEnabled()) {
