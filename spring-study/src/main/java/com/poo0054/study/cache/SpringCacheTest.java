@@ -9,14 +9,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class SpringCacheTest {
 
-    private static AnnotationConfigApplicationContext annotationConfigApplicationContext;
-
     public static void main(String[] args) {
         init();
     }
 
     public static void init() {
-        annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
+        AnnotationConfigApplicationContext annotationConfigApplicationContext =
+            new AnnotationConfigApplicationContext(Config.class);
+        CacheTest cacheTest = annotationConfigApplicationContext.getBean(CacheTest.class);
+        String s = cacheTest.cacheTest();
+        System.out.println(s);
     }
 
 }

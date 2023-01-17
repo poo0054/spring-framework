@@ -1,5 +1,6 @@
 package com.poo0054.study.aop;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -16,5 +17,14 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 @Configuration
 @EnableAspectJAutoProxy
 public class AopConfig {
+    @Bean
+    public MyAspect myAspect() {
+        return new MyAspect();
+    }
+
+    @Bean
+    public SimpleService simpleService() {
+        return new SimpleServiceImpl();
+    }
 
 }
