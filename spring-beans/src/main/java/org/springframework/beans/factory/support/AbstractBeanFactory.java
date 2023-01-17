@@ -253,6 +253,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
           --------------------------------------
          */
         Object sharedInstance = getSingleton(beanName);
+        // 是否获取到对象
         if (sharedInstance != null && args == null) {
             if (logger.isTraceEnabled()) {
                 // 返回指定的单例 bean 当前是否正在创建中（在整个工厂中）。

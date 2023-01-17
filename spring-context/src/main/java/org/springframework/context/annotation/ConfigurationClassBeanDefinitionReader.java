@@ -123,6 +123,7 @@ class ConfigurationClassBeanDefinitionReader {
             registerBeanDefinitionForImportedConfigurationClass(configClass);
         }
         for (BeanMethod beanMethod : configClass.getBeanMethods()) {
+            // 加载 bean 方法注入
             loadBeanDefinitionsForBeanMethod(beanMethod);
         }
         // ImportedResource

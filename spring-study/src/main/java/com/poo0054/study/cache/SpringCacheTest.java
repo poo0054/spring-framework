@@ -1,6 +1,5 @@
 package com.poo0054.study.cache;
 
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -10,14 +9,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class SpringCacheTest {
 
-	private static AnnotationConfigApplicationContext annotationConfigApplicationContext;
+    private static AnnotationConfigApplicationContext annotationConfigApplicationContext;
 
-	public static void main(String[] args) {
-		init();
-	}
+    public static void main(String[] args) {
+        init();
+    }
 
-	public static void init() {
-		annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
-	}
+    public static void init() {
+        annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
+    }
 
 }
