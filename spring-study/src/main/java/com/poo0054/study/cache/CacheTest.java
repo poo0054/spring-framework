@@ -6,10 +6,10 @@ import org.springframework.cache.annotation.Cacheable;
 /**
  * @author poo00
  */
-@CacheConfig
+@CacheConfig(cacheNames = "test")
 public class CacheTest {
 
-    @Cacheable
+    @Cacheable(key = "'cacheTest'")
     public String cacheTest() {
         return "123456";
     }

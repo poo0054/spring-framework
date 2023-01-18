@@ -18,6 +18,7 @@ public class SpringCacheTest {
             new AnnotationConfigApplicationContext(Config.class);
         CacheTest cacheTest = annotationConfigApplicationContext.getBean(CacheTest.class);
         String s = cacheTest.cacheTest();
+        String s1 = cacheTest.cacheTest();
         System.out.println(s);
     }
 
