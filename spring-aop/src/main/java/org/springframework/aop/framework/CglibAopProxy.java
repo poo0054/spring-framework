@@ -180,11 +180,13 @@ class CglibAopProxy implements AopProxy, Serializable {
 
     @Override
     public Object getProxy(@Nullable ClassLoader classLoader) {
+        // 创建cglib 代理对象
         if (logger.isTraceEnabled()) {
             logger.trace("Creating CGLIB proxy: " + this.advised.getTargetSource());
         }
 
         try {
+            // 原始对象
             Class<?> rootClass = this.advised.getTargetClass();
             Assert.state(rootClass != null, "Target class must be available for creating a CGLIB proxy");
 
@@ -299,11 +301,13 @@ class CglibAopProxy implements AopProxy, Serializable {
 
     private Callback[] getCallbacks(Class<?> rootClass) throws Exception {
         // Parameters used for optimization choices...
+        // 用于优化选择的参数。。。
         boolean exposeProxy = this.advised.isExposeProxy();
         boolean isFrozen = this.advised.isFrozen();
         boolean isStatic = this.advised.getTargetSource().isStatic();
 
         // Choose an "aop" interceptor (used for AOP calls).
+        // 选择一个“aop”拦截器（用于aop调用）。
         Callback aopInterceptor = new DynamicAdvisedInterceptor(this.advised);
 
         // Choose a "straight to target" interceptor. (used for calls that are
@@ -334,12 +338,14 @@ class CglibAopProxy implements AopProxy, Serializable {
         // If the target is a static one and the advice chain is frozen,
         // then we can make some optimizations by sending the AOP calls
         // direct to the target using the fixed chain for that method.
+        // 如果目标是静态的，并且建议链被冻结，那么我们可以通过使用该方法的固定链将AOP调用直接发送到目标来进行一些优化。
         if (isStatic && isFrozen) {
             Method[] methods = rootClass.getMethods();
             Callback[] fixedCallbacks = new Callback[methods.length];
             this.fixedInterceptorMap = new HashMap<>(methods.length);
 
             // TODO: small memory optimization here (can skip creation for methods with no advice)
+            // 这里的小内存优化（可以跳过方法的创建，而无需建议）
             for (int x = 0; x < methods.length; x++) {
                 Method method = methods[x];
                 List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, rootClass);
@@ -350,6 +356,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 
             // Now copy both the callbacks from mainCallbacks
             // and fixedCallbacks into the callbacks array.
+            // 现在将mainCallbacks和fixedCallbacks的回调复制到回调数组中。
             callbacks = new Callback[mainCallbacks.length + fixedCallbacks.length];
             System.arraycopy(mainCallbacks, 0, callbacks, 0, mainCallbacks.length);
             System.arraycopy(fixedCallbacks, 0, callbacks, mainCallbacks.length, fixedCallbacks.length);
@@ -590,6 +597,7 @@ class CglibAopProxy implements AopProxy, Serializable {
             MethodInvocation invocation = new CglibMethodInvocation(proxy, this.target, method, args, this.targetClass,
                 this.adviceChain, methodProxy);
             // If we get here, we need to create a MethodInvocation.
+            // 如果我们到了这里，我们需要创建一个MethodInvocation。
             Object retVal = invocation.proceed();
             retVal = processReturnType(proxy, this.target, method, retVal);
             return retVal;
@@ -611,9 +619,8 @@ class CglibAopProxy implements AopProxy, Serializable {
         @Nullable
         public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
             /*
-              aop的代理执行
+             advised 的代理执行
              */
-
             Object oldProxy = null;
             boolean setProxyContext = false;
             Object target = null;

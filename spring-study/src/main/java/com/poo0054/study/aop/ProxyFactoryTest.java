@@ -16,10 +16,11 @@ public class ProxyFactoryTest {
     public static void main(String[] args) {
         ProxyFactory proxyFactory = new ProxyFactory();
         proxyFactory.setTarget(new SimpleServiceImpl());
-        // proxyFactory.setInterfaces(SimpleService.class);
+        proxyFactory.setInterfaces(SimpleService.class);
         proxyFactory.setAopProxyFactory(new DefaultAopProxyFactory());
         TestBeanAdvisor testBeanAdvisor = new TestBeanAdvisor();
         proxyFactory.addAdvisors(testBeanAdvisor);
+        // 创建出代理对象
         Object proxy = proxyFactory.getProxy();
         String send = ((SimpleService)proxy).send();
         System.out.println(testBeanAdvisor.count + "\t" + send);
