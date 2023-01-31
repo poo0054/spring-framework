@@ -314,6 +314,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
     @Nullable
     protected Object execute(CacheOperationInvoker invoker, Object target, Method method, Object[] args) {
         // Check whether aspect is enabled (to cope with cases where the AJ is pulled in automatically)
+        // 检查是否启用了方面（以应对自动引入AJ的情况）
         if (this.initialized) {
             Class<?> targetClass = getTargetClass(target);
             CacheOperationSource cacheOperationSource = getCacheOperationSource();

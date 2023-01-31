@@ -128,7 +128,7 @@ class ConfigurationClassBeanDefinitionReader {
         }
         // ImportedResource
         loadBeanDefinitionsFromImportedResources(configClass.getImportedResources());
-        //
+        // 注解
         loadBeanDefinitionsFromRegistrars(configClass.getImportBeanDefinitionRegistrars());
     }
 
