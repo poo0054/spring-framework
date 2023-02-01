@@ -3,6 +3,7 @@ package com.poo0054.study.spel;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
@@ -15,11 +16,9 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.ReflectionUtils;
 
 public class SpelTest {
-    public static void main(String[] args) {
-        extracted();
-    }
 
-    public static void test() {
+    @Test
+    void test() {
         SpelParserConfiguration config =
             new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE, SpelTest.class.getClassLoader());
         SpelExpressionParser parser = new SpelExpressionParser(config);
@@ -29,7 +28,8 @@ public class SpelTest {
         System.out.println(payload);
     }
 
-    private static void extracted1() {
+    @Test
+    void test1() {
         SpelParserConfiguration config = new SpelParserConfiguration(true, true);
         SpelExpressionParser spelExpressionParser = new SpelExpressionParser(config);
         Expression expression = spelExpressionParser.parseExpression("list[3]");
@@ -38,14 +38,16 @@ public class SpelTest {
         System.out.println(o);
     }
 
-    public static void simpleTest() {
+    @Test
+    void test2() {
         ExpressionParser spelExpressionParser = new SpelExpressionParser();
         Expression expression = spelExpressionParser.parseExpression("'Hello World'.bytes.length");
         Object value = expression.getValue();
         System.out.println(value);
     }
 
-    private static void extracted() {
+    @Test
+    void test3() {
         Demo demo = new Demo();
         ExpressionParser parser = new SpelExpressionParser();
         EvaluationContext context = new StandardEvaluationContext(demo);
@@ -54,7 +56,8 @@ public class SpelTest {
         System.out.println(parser.parseExpression("#root.name").getValue(demo));
     }
 
-    private static void extracted2() {
+    @Test
+    void test4() {
         Demo demo = new Demo();
         ExpressionParser parser = new SpelExpressionParser();
         EvaluationContext context = new StandardEvaluationContext(demo);
@@ -62,7 +65,8 @@ public class SpelTest {
         System.out.println(parser.parseExpression("#root.name").getValue(context));
     }
 
-    private static void aVoid() {
+    @Test
+    void test5() {
         SpelServiceImpl spelService = new SpelServiceImpl();
         Method method = ReflectionUtils.findMethod(SpelServiceImpl.class, "send", String.class);
         DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();

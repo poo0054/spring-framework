@@ -1,5 +1,6 @@
 package com.poo0054.study.cache;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -10,13 +11,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class SpringCacheTest {
 
-    public static void main(String[] args) {
-        init();
-    }
-
-    public static void init() {
-        ApplicationContext applicationContext =
-            new AnnotationConfigApplicationContext(CacheConfig.class);
+    @Test
+    void test() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CacheConfig.class);
         CacheTest cacheTest = applicationContext.getBean(CacheTest.class);
         String s = cacheTest.cacheTest("i like");
         System.out.println(s);

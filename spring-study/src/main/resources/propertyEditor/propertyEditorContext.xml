@@ -4,7 +4,7 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="user" class="com.poo0054.study.ioc.User">
+	<bean id="user" class="com.poo0054.study.propertyEditor.User">
 		<property name="age" value="10"/>
 		<property name="name" value="张三"/>
 		<property name="interest" value="敲代码,看源码"/>
@@ -14,7 +14,7 @@
 	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" id="customEditorConfigurer">
 		<property name="propertyEditorRegistrars">
 			<list>
-				<bean class="com.poo0054.study.ioc.CustomPropertyEditorRegistrar"/>
+				<bean class="com.poo0054.study.propertyEditor.CustomPropertyEditorRegistrar"/>
 			</list>
 		</property>
 	</bean>

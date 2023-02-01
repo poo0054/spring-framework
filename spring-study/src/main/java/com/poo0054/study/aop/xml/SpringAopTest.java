@@ -1,5 +1,6 @@
 package com.poo0054.study.aop.xml;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.poo0054.study.aop.annotation.SimpleService;
@@ -11,11 +12,8 @@ import com.poo0054.study.aop.annotation.SimpleService;
  */
 public class SpringAopTest {
 
-    public static void main(String[] args) {
-        aopTest();
-    }
-
-    public static void aopTest() {
+    @Test
+    void aopTest() {
         ClassPathXmlApplicationContext applicationContext =
             new ClassPathXmlApplicationContext("aop/SpringAopContext.xml");
         // SimpleBeanImpl testBean = (SimpleBeanImpl) applicationContext.getBean("proxyFactoryBean");

@@ -90,6 +90,7 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
         if (cached != null) {
             return (cached != NULL_CACHING_ATTRIBUTE ? cached : null);
         } else {
+            // 计算出 CacheOperation 也就是注解
             Collection<CacheOperation> cacheOps = computeCacheOperations(method, targetClass);
             if (cacheOps != null) {
                 if (logger.isTraceEnabled()) {
@@ -120,6 +121,7 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
     @Nullable
     private Collection<CacheOperation> computeCacheOperations(Method method, @Nullable Class<?> targetClass) {
         // Don't allow no-public methods as required.
+        // 不允许根据需要使用无公共方法。
         if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
             return null;
         }
@@ -130,6 +132,7 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
         Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
 
         // First try is the method in the target class.
+        // 首先尝试的是目标类中的方法
         Collection<CacheOperation> opDef = findCacheOperations(specificMethod);
         if (opDef != null) {
             return opDef;

@@ -1,5 +1,6 @@
 package com.poo0054.study.aop.ee;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.aop.framework.DefaultAopProxyFactory;
 import org.springframework.aop.framework.ProxyFactory;
 
@@ -7,7 +8,8 @@ import org.springframework.aop.framework.ProxyFactory;
  * @author poo00
  */
 public class ProxyFactoryTest {
-    public static void main(String[] args) {
+    @Test
+    void test() {
         ProxyFactory proxyFactory = new ProxyFactory();
         proxyFactory.setTarget(new ServiceImpl());
         proxyFactory.setInterfaces(Service.class);
