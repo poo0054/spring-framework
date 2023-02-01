@@ -1,4 +1,4 @@
-package com.poo0054.study.aop;
+package com.poo0054.study.aop.annotation;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

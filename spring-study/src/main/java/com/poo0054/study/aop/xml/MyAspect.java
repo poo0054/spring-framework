@@ -1,4 +1,4 @@
-package com.poo0054.study.aop;
+package com.poo0054.study.aop.xml;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class MyAspect {
 
-    @Pointcut("execution(* com.poo0054.study.aop.SimpleService.*(..))")
+    @Pointcut("execution(* com.poo0054.study.aop.annotation.SimpleService.*(..))")
     private void pointCut() {}
 
     @Around("pointCut()")

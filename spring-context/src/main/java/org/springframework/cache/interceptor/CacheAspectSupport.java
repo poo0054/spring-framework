@@ -197,6 +197,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
     public void afterSingletonsInstantiated() {
         if (getCacheResolver() == null) {
             // Lazily initialize cache resolver via default cache manager...
+            // 通过默认缓存管理器懒惰地初始化缓存解析器...
             Assert.state(this.beanFactory != null, "CacheResolver or BeanFactory must be set on cache aspect");
             try {
                 setCacheManager(this.beanFactory.getBean(CacheManager.class));
@@ -350,6 +351,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
     @Nullable
     private Object execute(final CacheOperationInvoker invoker, Method method, CacheOperationContexts contexts) {
         // Special handling of synchronized invocation
+        // 同步调用的特殊处理
         if (contexts.isSynchronized()) {
             CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next();
             if (isConditionPassing(context, CacheOperationExpressionEvaluator.NO_RESULT)) {
@@ -369,9 +371,11 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
         }
 
         // Process any early evictions
+        // 处理任何早期驱逐
         processCacheEvicts(contexts.get(CacheEvictOperation.class), true, CacheOperationExpressionEvaluator.NO_RESULT);
 
         // Check if we have a cached item matching the conditions
+        // 检查我们是否有与条件匹配的缓存项
         Cache.ValueWrapper cacheHit = findCachedItem(contexts.get(CacheableOperation.class));
 
         // Collect puts from any @Cacheable miss, if no cached item is found

@@ -1,32 +1,13 @@
-package com.poo0054.study.aop;
+package com.poo0054.study.aop.ee;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
 import org.springframework.aop.MethodBeforeAdvice;
-import org.springframework.aop.framework.DefaultAopProxyFactory;
-import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 import org.springframework.lang.Nullable;
 
-/**
- * @author poo00
- */
-public class ProxyFactoryTest {
-    public static void main(String[] args) {
-        ProxyFactory proxyFactory = new ProxyFactory();
-        proxyFactory.setTarget(new SimpleServiceImpl());
-        proxyFactory.setInterfaces(SimpleService.class);
-        proxyFactory.setAopProxyFactory(new DefaultAopProxyFactory());
-        TestBeanAdvisor testBeanAdvisor = new TestBeanAdvisor();
-        proxyFactory.addAdvisors(testBeanAdvisor);
-        // 创建出代理对象
-        Object proxy = proxyFactory.getProxy();
-        String send = ((SimpleService)proxy).send();
-        System.out.println(testBeanAdvisor.count + "\t" + send);
-    }
-
-}
+import com.poo0054.study.aop.annotation.SimpleService;
 
 class TestBeanAdvisor extends StaticMethodMatcherPointcutAdvisor implements Serializable {
 

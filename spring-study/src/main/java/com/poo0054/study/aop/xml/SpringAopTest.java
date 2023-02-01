@@ -1,6 +1,8 @@
-package com.poo0054.study.aop;
+package com.poo0054.study.aop.xml;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.poo0054.study.aop.annotation.SimpleService;
 
 /**
  * @author zhangzhi

@@ -1,9 +1,11 @@
-package com.poo0054.study.aop;
+package com.poo0054.study.aop.annotation;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+
+import com.poo0054.study.aop.xml.MyAspect;
 
 /**
  * configuration需要{@link org.springframework.context.annotation.ConfigurationClassPostProcessor}进行处理

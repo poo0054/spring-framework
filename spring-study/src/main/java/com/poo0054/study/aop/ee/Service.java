@@ -1,4 +1,4 @@
-package com.poo0054.study.aop;
+package com.poo0054.study.aop.ee;
 
 import org.springframework.beans.factory.BeanFactory;
 
@@ -10,9 +10,8 @@ import org.springframework.beans.factory.BeanFactory;
  * @since 2022/6/22 17:21
  */
 
-public interface SimpleService {
+public interface Service {
 
-	String send();
-
+    String send();
 
 }

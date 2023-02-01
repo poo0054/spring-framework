@@ -9,9 +9,9 @@ import org.springframework.cache.annotation.Cacheable;
 @CacheConfig(cacheNames = "test")
 public class CacheTest {
 
-    @Cacheable(key = "'cacheTest'")
-    public String cacheTest() {
-        return "123456";
+    @Cacheable(key = "#str+'::arg'")
+    public String cacheTest(String str) {
+        return "123456" + str;
     }
 
 }

@@ -15,7 +15,7 @@ import com.poo0054.study.customAop.annotation.Aop;
 /**
  * @author poo00
  */
-public class AopPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
+public class TestAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 
     public static final long serialVersionUID = -7393292428519158720L;
 

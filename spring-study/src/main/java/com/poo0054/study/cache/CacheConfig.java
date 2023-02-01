@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @EnableCaching
 @Configuration
-public class Config {
+public class CacheConfig {
 
     @Bean
     public CacheTest cacheTest() {

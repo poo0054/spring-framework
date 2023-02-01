@@ -5,16 +5,16 @@
 	   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="xmlBeforeAdvice" class="com.poo0054.study.aop.XmlBeforeAdvice"/>
-    <bean id="simpleBeanImpl" class="com.poo0054.study.aop.SimpleServiceImpl"/>
-    <bean id="myAspect" class="com.poo0054.study.aop.MyAspect"/>
-    <bean id="aopConfig" class="com.poo0054.study.aop.AopConfig"/>
-    <bean id="aop1Config" class="com.poo0054.study.aop.Aop1Config"/>
+    <bean id="xmlBeforeAdvice" class="com.poo0054.study.aop.xml.XmlBeforeAdvice"/>
+    <bean id="simpleBeanImpl" class="com.poo0054.study.aop.annotation.SimpleServiceImpl"/>
+    <bean id="myAspect" class="com.poo0054.study.aop.xml.MyAspect"/>
+    <bean id="aopConfig" class="com.poo0054.study.aop.annotation.AopConfig"/>
+    <bean id="aop1Config" class="com.poo0054.study.aop.xml.Aop1Config"/>
     <bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>
 
     <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
         <!-- 代理类实现的接口 -->
-        <property name="proxyInterfaces" value="com.poo0054.study.aop.SimpleService"/>
+        <property name="proxyInterfaces" value="com.poo0054.study.aop.annotation.SimpleService"/>
         <!-- 被代理的对象 -->
         <property name="target" ref="simpleBeanImpl">
         </property>
