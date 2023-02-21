@@ -4,6 +4,7 @@ dependencies {
     compile(project(":spring-aspects"))
     compile(project(":spring-context"))
     compile(project(":spring-jdbc"))
+    compile(project(":spring-test"))
     compile("com.alibaba:druid:1.2.9")
     compile("mysql:mysql-connector-java:8.0.29")
     compile("org.junit.jupiter:junit-jupiter:5.5.2")

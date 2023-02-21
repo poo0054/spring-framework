@@ -63,7 +63,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
         // 获取注册器，这是一个单例模式的实现
         AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
-        // 获取所有的
+        // 获取所有的 Advisor
         Advisor[] advisors = config.getAdvisors();
 
         // Advisor链 已经在传进来的 config 中持有了，这里可以直接使用。
@@ -79,11 +79,9 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
                 // Add it conditionally.
                 // 有条件地添加它。
                 PointcutAdvisor pointcutAdvisor = (PointcutAdvisor)advisor;
-                // 类级别过滤
                 if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {
                     MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher();
                     boolean match;
-                    // MethodMatcher 方法级别过滤
                     if (mm instanceof IntroductionAwareMethodMatcher) {
                         if (hasIntroductions == null) {
                             hasIntroductions = hasMatchingIntroductions(advisors, actualClass);
@@ -95,6 +93,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
                     if (match) {
                         // 符合条件的添加
                         MethodInterceptor[] interceptors = registry.getInterceptors(advisor);
+                        // 是否为动态的
                         if (mm.isRuntime()) {
                             // Creating a new object instance in the getInterceptors() method
                             // isn't a problem as we normally cache created chains.
@@ -107,7 +106,6 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
                         }
                     }
                 }
-                // advisor 如果是 IntroductionAdvisor 的实例
             } else if (advisor instanceof IntroductionAdvisor) {
                 IntroductionAdvisor ia = (IntroductionAdvisor)advisor;
                 if (config.isPreFiltered() || ia.getClassFilter().matches(actualClass)) {

@@ -16,10 +16,7 @@ public class SpringIocTest {
     @Test
     void springTest() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("ioc/simpleContext.xml");
-        // FileSystemXmlApplicationContext applicationContext = new
-        // FileSystemXmlApplicationContext("SpringAopContext.xml");
         TestBean testBean = applicationContext.getBean("testBean", TestBean.class);
-        // TestBean1 testBean1 = applicationContext.getBean("testBean1", TestBean1.class);
         System.out.println("testBean---------------" + testBean);
     }
 

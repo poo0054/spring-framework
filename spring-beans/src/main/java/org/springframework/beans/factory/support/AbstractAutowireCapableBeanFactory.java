@@ -523,7 +523,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
         if (instanceWrapper == null) {
             /**
-             * ----------------------------------------------------- 创建BeanWrapperImpl对象 实例化bean对象 反射或者 cglib
+             * ----------------------------------------------------- 创建BeanWrapperImpl对象
              * -----------------------------------------------------
              */
             instanceWrapper = createBeanInstance(beanName, mbd, args);
@@ -539,6 +539,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         // 允许后处理器修改合并的 bean 定义。
         // MergedBeanDefinitionPostProcessor
         synchronized (mbd.postProcessingLock) {
+            // 当前类不能为 postProcessed
             if (!mbd.postProcessed) {
                 try {
                     applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
@@ -1393,8 +1394,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             }
         }
 
-        // 获取 RootBeanDefinition 中设置的 属性值PropertyValues，这些属性值来自对
-        // .xml 文件中 bean元素 的解析
+        // 获取 RootBeanDefinition 中设置的 属性值PropertyValues，这些属性值来自对 .xml 文件中 bean元素 的解析
         PropertyValues pvs = (mbd.hasPropertyValues() ? mbd.getPropertyValues() : null);
 
         int resolvedAutowireMode = mbd.getResolvedAutowireMode();
@@ -1705,6 +1705,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 }
                 // Possibly store converted value in merged bean definition,
                 // in order to avoid re-conversion for every created bean instance.
+                // 可能将转换后的值存储在合并的bean定义中，以避免对每个创建的bean实例进行重新转换。
                 if (resolvedValue == originalValue) {
                     if (convertible) {
                         pv.setConvertedValue(convertedValue);
@@ -1726,6 +1727,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         // Set our (possibly massaged) deep copy.
+        // 设置我们的 (可能是按摩的) 深度副本。
         try {
             bw.setPropertyValues(new MutablePropertyValues(deepCopy));
         } catch (BeansException ex) {

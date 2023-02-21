@@ -1,4 +1,4 @@
-package com.poo0054.study.customAop;
+package com.poo0054.study.customAop.pointcut;
 
 import java.lang.reflect.Method;
 
@@ -20,22 +20,6 @@ public class AopPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
     public static final long serialVersionUID = -7393292428519158720L;
 
     private final Pointcut pointcut = new MatcherPointcut();
-
-    /* private final StaticMethodMatcherPointcut pointcut = new MethodMatcher() {
-        
-        @Override
-        public boolean matches(Method method, Class<?> targetClass) {
-            // TODO 添加缓存
-            MethodClassKey methodClassKey = new MethodClassKey(method, targetClass);
-            Method mostSpecificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
-            // Aop annotation = mostSpecificMethod.getAnnotation(Aop.class);
-            Aop annotation = AnnotationUtils.findAnnotation(mostSpecificMethod, Aop.class);
-            if (null != annotation) {
-                return true;
-            }
-            return false;
-        }
-    };*/
 
     @Override
     public Pointcut getPointcut() {

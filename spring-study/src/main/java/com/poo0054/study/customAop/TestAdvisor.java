@@ -19,7 +19,7 @@ public class TestAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 
     public static final long serialVersionUID = -7393292428519158720L;
 
-    private final Pointcut pointcut = new MatcherPointcut();
+    private final Pointcut pointcut = new AopPointcut();
 
     /* private final StaticMethodMatcherPointcut pointcut = new MethodMatcher() {
         
@@ -42,7 +42,7 @@ public class TestAdvisor extends AbstractBeanFactoryPointcutAdvisor {
         return pointcut;
     }
 
-    private static class MatcherPointcut implements Pointcut, MethodMatcher, ClassFilter {
+    private static class AopPointcut implements Pointcut, MethodMatcher, ClassFilter {
 
         @Override
         public boolean matches(Method method, Class<?> targetClass) {

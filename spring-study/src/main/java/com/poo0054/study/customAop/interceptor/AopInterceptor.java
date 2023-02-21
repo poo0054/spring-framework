@@ -1,11 +1,10 @@
-package com.poo0054.study.customAop;
+package com.poo0054.study.customAop.interceptor;
 
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import com.poo0054.study.customAop.annotation.Aop;
@@ -29,7 +28,6 @@ public class AopInterceptor implements MethodInterceptor {
     }
 
     private Object execute(Supplier<Object> supplier, Object target, Method method, Object[] arguments) {
-        Class<?> aClass = AopProxyUtils.ultimateTargetClass(target);
         Aop annotation = AnnotationUtils.findAnnotation(method, Aop.class);
         System.out.println(annotation.value());
         return supplier.get();

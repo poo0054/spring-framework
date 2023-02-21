@@ -20,7 +20,6 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.aop.config.AopConfigUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -65,7 +64,7 @@ public class AutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 				continue;
 			}
 			Object mode = candidate.get("mode");
-			Object proxyTargetClass = candidate.get("proxyTargetClass");
+            Object proxyTargetClass = candidate.get("proxyTargetClass");
 			if (mode != null && proxyTargetClass != null && AdviceMode.class == mode.getClass() &&
 					Boolean.class == proxyTargetClass.getClass()) {
 				candidateFound = true;

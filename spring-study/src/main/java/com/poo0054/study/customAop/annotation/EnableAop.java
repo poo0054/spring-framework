@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
 
-import com.poo0054.study.customAop.AopAdviceModeImportSelector;
+import com.poo0054.study.customAop.config.AopAdviceModeImportSelector;
 
 /**
  * @author poo00
