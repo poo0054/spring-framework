@@ -9,15 +9,15 @@ import java.beans.PropertyEditorSupport;
  */
 
 public class InterestPropertyEditor extends PropertyEditorSupport {
-	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
-		if (text != null) {
-			final String[] split = text.split(",");
-			Interest interest = new Interest();
-			interest.setOne(split[0]);
-			interest.setTown(split[1]);
-			setValue(interest);
-		}
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+        if (text != null) {
+            final String[] split = text.split(",");
+            Interest interest = new Interest();
+            interest.setOne(split[0]);
+            interest.setTown(split[1]);
+            setValue(interest);
+        }
 
-	}
+    }
 }

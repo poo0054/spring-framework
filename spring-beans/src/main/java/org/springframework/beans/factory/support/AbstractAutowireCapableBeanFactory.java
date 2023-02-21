@@ -522,10 +522,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
         }
         if (instanceWrapper == null) {
-            /**
-             * ----------------------------------------------------- 创建BeanWrapperImpl对象
-             * -----------------------------------------------------
-             */
+            // 创建BeanWrapperImpl对象 还有自定义的属性转换 PropertyEditorRegistrar
             instanceWrapper = createBeanInstance(beanName, mbd, args);
         }
         // 获取实例化对象和其类型
@@ -1315,6 +1312,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, this);
             }
             BeanWrapper bw = new BeanWrapperImpl(beanInstance);
+            // 使用属性转换 PropertyEditorRegistrar
             initBeanWrapper(bw);
             return bw;
         } catch (Throwable ex) {
@@ -1444,6 +1442,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         if (pvs != null) {
+            // 自定义的PropertyEditorSupport
             applyPropertyValues(beanName, mbd, bw, pvs);
         }
     }
