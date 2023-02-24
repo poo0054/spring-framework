@@ -16,7 +16,7 @@ public class SpringListenerTest {
     @Test
     void test() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("listener/listenerContext.xml");
-        ApplicationEventDemo applicationEventDemo = new ApplicationEventDemo("123456");
+        ApplicationEventTest applicationEventTest = new ApplicationEventTest("123456");
         Object applicationEventMulticaster = applicationContext.getBean("applicationEventMulticaster");
         if (applicationEventMulticaster instanceof SimpleApplicationEventMulticaster) {
             SimpleApplicationEventMulticaster eventMulticaster =
@@ -26,7 +26,7 @@ public class SpringListenerTest {
         } else if (applicationEventMulticaster instanceof ApplicationEventMulticaster) {
             ApplicationEventMulticaster eventMulticaster = (ApplicationEventMulticaster)applicationEventMulticaster;
         }
-        applicationContext.publishEvent(applicationEventDemo);
+        applicationContext.publishEvent(applicationEventTest);
     }
 
 }
