@@ -8,18 +8,18 @@
 
 	<!-- 部署 DispatcherServlet -->
 	<servlet>
-		<servlet-name>sample</servlet-name>
+		<servlet-name>SpringMVC</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
-			<param-name>namespace</param-name>
-			<param-value>applicationContext</param-value>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>WEB-INF/applicationContext.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>sample</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<servlet-name>SpringMVC</servlet-name>
+		<url-pattern>/**</url-pattern>
 	</servlet-mapping>
 
 	<listener>

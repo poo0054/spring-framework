@@ -1,0 +1,8 @@
+dependencies {
+//    implementation(project(":spring-webmvc"))
+    implementation("org.springframework:spring-webmvc:5.2.22.RELEASE")
+    compile('com.alibaba:druid:1.2.16')
+    compile('mysql:mysql-connector-java:8.0.32')
+    compile('org.junit.jupiter:junit-jupiter:5.9.2')
+}
+
