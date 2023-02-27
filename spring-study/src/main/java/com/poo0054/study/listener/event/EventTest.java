@@ -1,4 +1,4 @@
-package com.poo0054.study.listener;
+package com.poo0054.study.listener.event;
 
 import org.springframework.context.ApplicationEvent;
 
@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationEvent;
  * @since 2022/8/2 10:47
  */
 
-public class ApplicationEventTest extends ApplicationEvent {
+public class EventTest extends ApplicationEvent {
 
     private static final long serialVersionUID = 7736675937532675739L;
 
@@ -18,10 +18,8 @@ public class ApplicationEventTest extends ApplicationEvent {
      * @param source the object on which the event initially occurred or with which the event is associated (never
      *            {@code null})
      */
-    public ApplicationEventTest(Object source) {
-
+    public EventTest(Object source) {
         super(source);
     }
-
 
 }

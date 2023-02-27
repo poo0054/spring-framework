@@ -270,6 +270,7 @@ public class DispatcherServlet extends FrameworkServlet {
         // Load default strategy implementations from properties file.
         // This is currently strictly internal and not meant to be customized
         // by application developers.
+        // 从财产文件加载默认策略实现。这目前是严格内部的，不打算由应用程序开发人员定制。
         try {
             ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, DispatcherServlet.class);
             defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);
@@ -487,6 +488,7 @@ public class DispatcherServlet extends FrameworkServlet {
      */
     @Override
     protected void onRefresh(ApplicationContext context) {
+        // 初始化和监听器触发
         initStrategies(context);
     }
 
@@ -499,8 +501,8 @@ public class DispatcherServlet extends FrameworkServlet {
         initMultipartResolver(context);
         initLocaleResolver(context);
         initThemeResolver(context);
-        initHandlerMappings(context);
         initHandlerAdapters(context);
+        initHandlerMappings(context);
         initHandlerExceptionResolvers(context);
         initRequestToViewNameTranslator(context);
         initViewResolvers(context);
@@ -589,6 +591,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
         if (this.detectAllHandlerMappings) {
             // Find all HandlerMappings in the ApplicationContext, including ancestor contexts.
+            // 在ApplicationContext中查找所有HandlerMappings，包括祖先上下文。
             Map<String, HandlerMapping> matchingBeans =
                 BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
             if (!matchingBeans.isEmpty()) {
@@ -607,6 +610,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
         // Ensure we have at least one HandlerMapping, by registering
         // a default HandlerMapping if no other mappings are found.
+        // 如果找不到其他映射，请注册默认HandlerMapping，以确保至少有一个HandlerMapping。
         if (this.handlerMappings == null) {
             this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
             if (logger.isTraceEnabled()) {
@@ -935,6 +939,9 @@ public class DispatcherServlet extends FrameworkServlet {
         }
 
         try {
+            /*
+            分派
+             */
             doDispatch(request, response);
         } finally {
             if (!WebAsyncUtils.getAsyncManager(request).isConcurrentHandlingStarted()) {

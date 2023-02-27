@@ -532,6 +532,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
         if (this.webApplicationContext != null) {
             // A context instance was injected at construction time -> use it
+            // 在构建时注入了一个上下文实例->使用它
             wac = this.webApplicationContext;
             if (wac instanceof ConfigurableWebApplicationContext) {
                 ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext)wac;
@@ -552,17 +553,21 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
             // has been registered in the servlet context. If one exists, it is assumed
             // that the parent context (if any) has already been set and that the
             // user has performed any initialization such as setting the context id
+            // 在构建时没有注入上下文实例->查看是否在servlet上下文中注册了一个实例。如果存在，则假定父上下文（如果有）已经设置，并且用户已经执行了任何初始化，例如设置上下文id
             wac = findWebApplicationContext();
         }
         if (wac == null) {
             // No context instance is defined for this servlet -> create a local one
+            // 没有为此servlet定义上下文实例->创建本地实例 并刷新 ApplicationContext 其中会触发监听器 刷新mvc所需组件
             wac = createWebApplicationContext(rootContext);
         }
 
+        // 上面监听器触发过 该处不再触发
         if (!this.refreshEventReceived) {
             // Either the context is not a ConfigurableApplicationContext with refresh
             // support or the context injected at construction time had already been
             // refreshed -> trigger initial onRefresh manually here.
+            // 上下文不是具有刷新支持的ConfigurationApplicationContext，或者在构建时注入的上下文已经刷新->此处手动触发初始onRefresh。
             synchronized (this.onRefreshMonitor) {
                 onRefresh(wac);
             }
@@ -570,6 +575,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
         if (this.publishContext) {
             // Publish the context as a servlet context attribute.
+            // 将上下文发布为servlet上下文属性。
             String attrName = getServletContextAttributeName();
             getServletContext().setAttribute(attrName, wac);
         }
@@ -655,11 +661,14 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
         wac.setServletContext(getServletContext());
         wac.setServletConfig(getServletConfig());
         wac.setNamespace(getNamespace());
+        // 添加事件 等待ContextRefreshed
         wac.addApplicationListener(new SourceFilteringListener(wac, new ContextRefreshListener()));
 
         // The wac environment's #initPropertySources will be called in any case when the context
         // is refreshed; do it eagerly here to ensure servlet property sources are in place for
         // use in any post-processing or initialization that occurs below prior to #refresh
+        // 在刷新上下文时，在任何情况下都会调用wac环境的initPropertySources；在这里急切地做这件事，
+        // 以确保servlet属性源在刷新之前的任何后处理或初始化中都可以使用
         ConfigurableEnvironment env = wac.getEnvironment();
         if (env instanceof ConfigurableWebEnvironment) {
             ((ConfigurableWebEnvironment)env).initPropertySources(getServletContext(), getServletConfig());
@@ -976,14 +985,19 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
         LocaleContext localeContext = buildLocaleContext(request);
 
         RequestAttributes previousAttributes = RequestContextHolder.getRequestAttributes();
+        // 封装 request, response
         ServletRequestAttributes requestAttributes = buildRequestAttributes(request, response, previousAttributes);
 
+        // 创建WebAsyncManager
         WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
+        // 注册 RequestBindingInterceptor
         asyncManager.registerCallableInterceptor(FrameworkServlet.class.getName(), new RequestBindingInterceptor());
 
+        // 设置 localeContext localeContext到 Holder 方便取出
         initContextHolders(request, localeContext, requestAttributes);
 
         try {
+            // 真正执行
             doService(request, response);
         } catch (ServletException | IOException ex) {
             failureCause = ex;

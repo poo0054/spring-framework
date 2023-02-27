@@ -1,4 +1,4 @@
-package com.poo0054.study.listener;
+package com.poo0054.study.listener.event;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.config.ContextNamespaceHandler;
@@ -25,7 +25,7 @@ public class AnnotationListenerTest {
      * @param event 事件
      */
     @EventListener
-    public void onApplicationEvent(ApplicationEventTest event) {
+    public void onApplicationEvent(EventTest event) {
         System.out.println("------------------AnnotationListenerTest-------------------" + event);
     }
 }
