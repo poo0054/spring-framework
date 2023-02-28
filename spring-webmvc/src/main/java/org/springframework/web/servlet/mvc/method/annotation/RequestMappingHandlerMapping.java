@@ -175,6 +175,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
     @Override
     @SuppressWarnings("deprecation")
     public void afterPropertiesSet() {
+        // 维护参数
         this.config = new RequestMappingInfo.BuilderConfiguration();
         this.config.setUrlPathHelper(getUrlPathHelper());
         this.config.setPathMatcher(getPathMatcher());

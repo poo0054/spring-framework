@@ -1016,7 +1016,9 @@ public class DispatcherServlet extends FrameworkServlet {
                 multipartRequestParsed = (processedRequest != request);
 
                 // Determine handler for the current request.
-                // 确定当前请求的处理程序
+                /*
+                确定当前请求的处理程序
+                 */
                 mappedHandler = getHandler(processedRequest);
                 if (mappedHandler == null) {
                     noHandlerFound(processedRequest, response);
@@ -1042,6 +1044,7 @@ public class DispatcherServlet extends FrameworkServlet {
                 }
 
                 // Actually invoke the handler.
+                // 实际上调用处理程序。
                 mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
                 if (asyncManager.isConcurrentHandlingStarted()) {
@@ -1230,6 +1233,7 @@ public class DispatcherServlet extends FrameworkServlet {
     protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
         if (this.handlerMappings != null) {
             for (HandlerMapping mapping : this.handlerMappings) {
+                // 找到可用的mapping 一般都是 RequestMappingHandlerMapping
                 HandlerExecutionChain handler = mapping.getHandler(request);
                 if (handler != null) {
                     return handler;

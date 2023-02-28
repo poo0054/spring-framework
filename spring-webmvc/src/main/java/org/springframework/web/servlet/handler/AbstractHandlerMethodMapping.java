@@ -204,7 +204,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
      * @see #handlerMethodsInitialized
      */
     protected void initHandlerMethods() {
+        // 处理所有bean
         for (String beanName : getCandidateBeanNames()) {
+            // 不为 scopedTarget 开头
             if (!beanName.startsWith(SCOPED_TARGET_NAME_PREFIX)) {
                 processCandidateBean(beanName);
             }
@@ -265,7 +267,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
         if (handlerType != null) {
             Class<?> userType = ClassUtils.getUserClass(handlerType);
-            // 找出RequestMapping并创建出
+            // 找出RequestMapping并创建出 RequestMappingInfo
             Map<Method, T> methods =
                 MethodIntrospector.selectMethods(userType, (MethodIntrospector.MetadataLookup<T>)method -> {
                     try {
@@ -357,6 +359,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
         request.setAttribute(LOOKUP_PATH, lookupPath);
         this.mappingRegistry.acquireReadLock();
         try {
+            // 找到 HandlerMethod
             HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
             return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);
         } finally {
@@ -408,6 +411,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
                 }
             }
             request.setAttribute(BEST_MATCHING_HANDLER_ATTRIBUTE, bestMatch.handlerMethod);
+            // 处理参数 属性 方便后面获取
             handleMatch(bestMatch.mapping, lookupPath, request);
             return bestMatch.handlerMethod;
         } else {
@@ -644,7 +648,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
         }
 
         public void register(T mapping, Object handler, Method method) {
-            // handler: 实际对象
+            // T : 一般为RequestMappingInfo 实际对象 方法
+            // handler: 实际对象类型或者名称
             // Assert that the handler method is not a suspending one.
             // 断言处理程序方法不是挂起方法。
             if (KotlinDetector.isKotlinType(method.getDeclaringClass())) {
