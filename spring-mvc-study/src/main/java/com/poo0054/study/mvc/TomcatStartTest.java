@@ -14,6 +14,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 
 /**
+ * tomcat>service>connector,Engine   Engine>host>Context
+ *
  * @author zhangzhi
  * @date 2023/3/1
  */
@@ -44,14 +46,17 @@ public class TomcatStartTest {
 		engine.addChild(host);
 		//在对应的host下面创建一个 standardContext 并制定他的工作路径
 		Context context = tomcat.addContext(host, "", null);
+		//ContextLoaderListener 中获取的属性
 		context.addParameter("contextConfigLocation", "classpath:applicationContext.xml");
 		context.addApplicationListener("org.springframework.web.context.ContextLoaderListener");
 //		servletContext.setInitParameter("contextClass", "applicationContext.xml");
 		//创建一个servlet
 		StandardWrapper wrapper = new StandardWrapper();
 //		DispatcherServlet servlet = new DispatcherServlet();
+//		servlet.setContextConfigLocation("classpath:applicationContext.xml");
 //		wrapper.setServlet(servlet);
 		wrapper.setServletClass("org.springframework.web.servlet.DispatcherServlet");
+		//当前属性的参数
 		wrapper.addInitParameter("contextConfigLocation", "classpath:applicationContext.xml");
 		wrapper.setLoadOnStartup(1);
 		context.addChild(wrapper);
