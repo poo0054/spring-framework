@@ -13,30 +13,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("test")
 public class TestController {
 
-    /**
-     * 测试
-     * 
-     * @return test
-     */
-    @GetMapping
-    public String test() {
-        test1();
-        return "test";
-    }
+	/**
+	 * 测试
+	 *
+	 * @return test
+	 */
+	@GetMapping
+	public String test() {
+//        test1();
+		return "test";
+	}
 
-    /**
-     * 测试
-     * 
-     * @return test
-     */
-    @GetMapping("/path/{str}")
-    public String testPath(@PathVariable("str") String str) {
-        test1();
-        return str;
-    }
+	/**
+	 * 测试
+	 *
+	 * @return test
+	 */
+	@GetMapping("/path/{str}")
+	public String testPath(@PathVariable("str") String str) {
+		test1();
+		return str;
+	}
 
-    private void test1() {
-        test1();
-    }
+	private void test1() {
+		test1();
+	}
 
 }

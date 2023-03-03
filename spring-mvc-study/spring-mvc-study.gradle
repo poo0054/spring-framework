@@ -1,6 +1,8 @@
 dependencies {
-//    implementation(project(":spring-webmvc"))
-    implementation("org.springframework:spring-webmvc:5.2.22.RELEASE")
+    implementation(project(":spring-webmvc"))
+//    implementation("org.springframework:spring-webmvc:5.2.22.RELEASE")
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.70')
+    implementation('org.apache.tomcat.embed:tomcat-embed-jasper:9.0.70')
     compile('com.alibaba:druid:1.2.16')
     compile('mysql:mysql-connector-java:8.0.32')
     compile('org.junit.jupiter:junit-jupiter:5.9.2')
