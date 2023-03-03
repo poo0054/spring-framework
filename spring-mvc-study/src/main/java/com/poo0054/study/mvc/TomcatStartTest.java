@@ -2,7 +2,6 @@ package com.poo0054.study.mvc;
 
 import com.poo0054.study.mvc.config.Config;
 import org.apache.catalina.*;
-import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
 import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.core.StandardWrapper;
@@ -45,22 +44,19 @@ public class TomcatStartTest {
 		engine.addChild(host);
 		//在对应的host下面创建一个 standardContext 并制定他的工作路径
 		Context context = tomcat.addContext(host, "", null);
-		StandardContext standardContext = (StandardContext) context;
-		ServletContext servletContext = standardContext.getServletContext();
-		servletContext.setAttribute("contextClass", "applicationContext.xml");
-
+		context.addParameter("contextConfigLocation", "classpath:applicationContext.xml");
+		context.addApplicationListener("org.springframework.web.context.ContextLoaderListener");
 //		servletContext.setInitParameter("contextClass", "applicationContext.xml");
 		//创建一个servlet
 		StandardWrapper wrapper = new StandardWrapper();
-		DispatcherServlet servlet = new DispatcherServlet();
-		wrapper.setServlet(servlet);
+//		DispatcherServlet servlet = new DispatcherServlet();
+//		wrapper.setServlet(servlet);
+		wrapper.setServletClass("org.springframework.web.servlet.DispatcherServlet");
 		wrapper.addInitParameter("contextConfigLocation", "classpath:applicationContext.xml");
-//		wrapper.addInitParameter("contextClass", "org.springframework.web.context.support.AnnotationConfigWebApplicationContext");
 		wrapper.setLoadOnStartup(1);
-		standardContext.addChild(wrapper);
+		context.addChild(wrapper);
 		wrapper.setName("mvcServlet");
 		wrapper.addMapping("/");
-		wrapper.getServletContext().addListener("org.springframework.web.context.ContextLoaderListener");
 		//tomcat启动
 		tomcat.start();
 		//保持主线程不退出
