@@ -7,7 +7,7 @@
 
     <bean id="xmlBeforeAdvice" class="com.poo0054.study.aop.xml.XmlBeforeAdvice"/>
     <bean id="simpleBeanImpl" class="com.poo0054.study.aop.annotation.SimpleServiceImpl"/>
-    <bean id="myAspect" class="com.poo0054.study.aop.xml.MyAspect"/>
+    <bean id="myAspect" class="com.poo0054.study.aop.annotation.MyAspect"/>
     <bean id="aopConfig" class="com.poo0054.study.aop.annotation.AopConfig"/>
     <bean id="aop1Config" class="com.poo0054.study.aop.xml.Aop1Config"/>
     <bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>

@@ -92,7 +92,6 @@ public class DefaultTransactionStatus extends AbstractTransactionStatus {
 		this.suspendedResources = suspendedResources;
 	}
 
-
 	/**
 	 * Return the underlying transaction object.
 	 * @throws IllegalStateException if no transaction is active

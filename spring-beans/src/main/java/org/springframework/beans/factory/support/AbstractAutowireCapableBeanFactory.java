@@ -13,6 +13,15 @@
 
 package org.springframework.beans.factory.support;
 
+import org.apache.commons.logging.Log;
+import org.springframework.beans.*;
+import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.config.*;
+import org.springframework.core.*;
+import org.springframework.lang.Nullable;
+import org.springframework.util.*;
+import org.springframework.util.ReflectionUtils.MethodCallback;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -26,15 +35,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Supplier;
-
-import org.apache.commons.logging.Log;
-import org.springframework.beans.*;
-import org.springframework.beans.factory.*;
-import org.springframework.beans.factory.config.*;
-import org.springframework.core.*;
-import org.springframework.lang.Nullable;
-import org.springframework.util.*;
-import org.springframework.util.ReflectionUtils.MethodCallback;
 
 /**
  * Abstract bean factory superclass that implements default bean creation, with the full capabilities specified by the
@@ -1790,9 +1790,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             throw new BeanCreationException((mbd != null ? mbd.getResourceDescription() : null), beanName,
                 "Invocation of init method failed", ex);
         }
-        if (mbd == null || !mbd.isSynthetic()) {
-            wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
-        }
+		if (mbd == null || !mbd.isSynthetic()) {
+			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
+		}
 
         return wrappedBean;
     }

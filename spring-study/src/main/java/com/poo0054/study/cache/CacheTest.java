@@ -1,7 +1,9 @@
 package com.poo0054.study.cache;
 
+import com.poo0054.study.propertyEditor.User;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author poo00
@@ -9,9 +11,11 @@ import org.springframework.cache.annotation.Cacheable;
 @CacheConfig(cacheNames = "test")
 public class CacheTest {
 
-    @Cacheable(key = "#str+'::arg'")
-    public String cacheTest(String str) {
-        return "123456" + str;
-    }
+	@Cacheable(key = "#str+'::arg'")
+	@Transactional
+	public User cacheTest(String str) {
+		User user = new User();
+		return user;
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.poo0054.study.aop.xml;
+package com.poo0054.study.aop.annotation;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

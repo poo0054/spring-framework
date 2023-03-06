@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 
-import com.poo0054.study.aop.xml.MyAspect;
-
 /**
  * configuration需要{@link org.springframework.context.annotation.ConfigurationClassPostProcessor}进行处理
  * 然后校验是否存在{@link ImportBeanDefinitionRegistrar}的注解 并进行注入 <br/>
