@@ -350,7 +350,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		//如果未给出事务定义，则使用默认值。
 		TransactionDefinition def = (definition != null ? definition : TransactionDefinition.withDefaults());
 
-		//获取数据源事务对象
+		//获取当前线程数据源事务对象
 		Object transaction = doGetTransaction();
 		boolean debugEnabled = logger.isDebugEnabled();
 
@@ -462,6 +462,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				// Create savepoint within existing Spring-managed transaction,
 				// through the SavepointManager API implemented by TransactionStatus.
 				// Usually uses JDBC 3.0 savepoints. Never activates Spring synchronization.
+				//在现有的 Spring 管理的事务中创建保存点，通过 TransactionStatus 实现的 SavepointManager API。通常使用 JDBC 3.0 保存点。从不激活 Spring 同步。
 				DefaultTransactionStatus status =
 						prepareTransactionStatus(definition, transaction, false, false, debugEnabled, null);
 				status.createAndHoldSavepoint();
@@ -470,6 +471,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				// Nested transaction through nested begin and commit/rollback calls.
 				// Usually only for JTA: Spring synchronization might get activated here
 				// in case of a pre-existing JTA transaction.
+				//通过嵌套的开始和提交回滚调用的嵌套事务。通常仅适用于 JTA：在预先存在的 JTA 事务的情况下，Spring 同步可能会在此处激活。
 				return startTransaction(definition, transaction, debugEnabled, null);
 			}
 		}

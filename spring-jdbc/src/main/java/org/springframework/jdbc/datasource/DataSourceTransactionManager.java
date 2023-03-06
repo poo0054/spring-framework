@@ -285,6 +285,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 			}
 
 			prepareTransactionalConnection(con, definition);
+			//设置有事务
 			txObject.getConnectionHolder().setTransactionActive(true);
 
 			int timeout = determineTimeout(definition);
