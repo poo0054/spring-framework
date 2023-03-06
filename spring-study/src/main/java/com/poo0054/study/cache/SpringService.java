@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @version 1.0
  * @date 2022/11/4 13:58
  */
-public class SpringCacheTest {
+public class SpringService {
 
 	@Test
 	void test() {

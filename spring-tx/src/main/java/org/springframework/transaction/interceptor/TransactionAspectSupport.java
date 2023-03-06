@@ -328,8 +328,11 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 											 final InvocationCallback invocation) throws Throwable {
 
 		// If the transaction attribute is null, the method is non-transactional.
+		//如果事务属性为 null，则该方法是非事务性的。
 		TransactionAttributeSource tas = getTransactionAttributeSource();
+		//获取事务参数
 		final TransactionAttribute txAttr = (tas != null ? tas.getTransactionAttribute(method, targetClass) : null);
+		//获取事务执行的Manager
 		final TransactionManager tm = determineTransactionManager(txAttr);
 
 		if (this.reactiveAdapterRegistry != null && tm instanceof ReactiveTransactionManager) {
@@ -349,12 +352,13 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			return txSupport.invokeWithinTransaction(
 					method, targetClass, invocation, txAttr, (ReactiveTransactionManager) tm);
 		}
-
+		//强转
 		PlatformTransactionManager ptm = asPlatformTransactionManager(tm);
 		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
 
 		if (txAttr == null || !(ptm instanceof CallbackPreferringPlatformTransactionManager)) {
 			// Standard transaction demarcation with getTransaction and commit/rollback calls.
+			//使用 getTransaction 和提交回滚调用进行标准事务划分。
 			TransactionInfo txInfo = createTransactionIfNecessary(ptm, txAttr, joinpointIdentification);
 
 			Object retVal;
@@ -1029,8 +1033,8 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 					// We don't roll back on this exception.
 					// Will still roll back if TransactionStatus.isRollbackOnly() is true.
 					return txInfo.getTransactionManager().commit(txInfo.getReactiveTransaction()).onErrorMap(ex2 -> {
-						logger.error("Application exception overridden by commit exception", ex);
-						if (ex2 instanceof TransactionSystemException) {
+								logger.error("Application exception overridden by commit exception", ex);
+								if (ex2 instanceof TransactionSystemException) {
 									((TransactionSystemException) ex2).initApplicationException(ex);
 								}
 								return ex2;
